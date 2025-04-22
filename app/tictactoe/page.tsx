@@ -3,25 +3,27 @@
 import React, { useState } from 'react';
 
 type SquareProps = {
-  value: string,
+  value: string | number,
   onSquareClick: React.MouseEventHandler
 }
 
 
 const Square = ({ value, onSquareClick }: SquareProps) => {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className="square" style={{fontSize: 20}} onClick={onSquareClick}>
       {value}
     </button>
   );
 }
 
 export default function Board() {
+  const area: Array<number | string> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [squares, setSquares] = useState(area);
 
   function handleClick(i: number) {
-    if (calculateWinner(squares) || squares[i]) {
+    console.log(squares)
+    if (calculateWinner(squares) || typeof squares[i] === "string") {
       return;
     }
     const nextSquares = squares.slice();
@@ -82,4 +84,15 @@ function calculateWinner(squares: any) {
     }
   }
   return null;
+}
+
+function make_q_table() {
+  const arr = Array(3 * 3**9).fill(null)
+  const q_table = []
+
+  while (arr.length) {
+    q_table.push(arr.splice(0, 9))
+  }
+
+  return q_table
 }
