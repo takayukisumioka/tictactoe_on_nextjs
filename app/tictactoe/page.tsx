@@ -23,7 +23,7 @@ export default function Board() {
 
   function handleClick(i: number) {
     console.log(squares)
-    if (calculateWinner(squares) || typeof squares[i] === "string") {
+    if (judge(squares) || typeof squares[i] === "string") {
       return;
     }
     const nextSquares = squares.slice();
@@ -36,7 +36,7 @@ export default function Board() {
     setXIsNext(!xIsNext);
   }
 
-  const winner = calculateWinner(squares);
+  const winner = judge(squares);
   let status;
   if (winner) {
     status = 'Winner: ' + winner;
@@ -66,7 +66,7 @@ export default function Board() {
   );
 }
 
-function calculateWinner(squares: any) {
+function judge(squares: any) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
